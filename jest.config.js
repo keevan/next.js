@@ -31,8 +31,7 @@ const customJestConfig = {
 // - which means our test trace will report test results for the flaky test as failed without retry.
 const shouldEnableTestTrace =
   process.env.DATADOG_API_KEY &&
-  process.env.DATADOG_TRACE_NEXTJS_TEST &&
-  !process.env.IS_RETRY
+  process.env.DATADOG_TRACE_NEXTJS_TEST
 
 if (shouldEnableTestTrace) {
   if (!customJestConfig.reporters) {
@@ -50,14 +49,16 @@ if (shouldEnableTestTrace) {
       outputDirectory,
       // note: {filename} is not a full path, since putting full path
       // makes suite name too long and truncates and not able to read the suite name
-      suiteNameTemplate: `{title} [${process.env.NEXT_TEST_MODE ?? 'default'}${
+      /*suiteNameTemplate: `{title} [${process.env.NEXT_TEST_MODE ?? 'default'}${
         process.env.TURBOPACK ? '/t' : ''
-      }${process.env.EXPERIMENTAL_TURBOPACK ? '/et' : ''}/{filename}]`,
+      }${process.env.EXPERIMENTAL_TURBOPACK ? '/et' : ''}/{filename}]`,*/
       reportTestSuiteErrors: 'true',
       uniqueOutputName: 'true',
       outputName: 'nextjs-test-junit',
     },
   ])
+} else {
+  throw new Error('should not occur')
 }
 
 // createJestConfig is exported in this way to ensure that next/jest can load the Next.js config which is async

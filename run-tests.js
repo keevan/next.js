@@ -278,6 +278,7 @@ async function main() {
   console.log(`${GROUP}Running tests:
 ${testNames.join('\n')}
 ${ENDGROUP}`)
+  console.log(`total: ${testNames.length}`)
 
   const hasIsolatedTests = testNames.some((test) => {
     return configuredTestTypes.some(
@@ -365,6 +366,9 @@ ${ENDGROUP}`)
             CONTINUOUS_INTEGRATION: '',
             RUN_ID: '',
             BUILD_NUMBER: '',
+            JEST_JUNIT_OUTPUT_NAME:
+              test && test.length > 0 ? test.replaceAll('/', '_') : undefined,
+            JEST_SUITE_NAME: [`${process.env.NEXT_TEST_MODE ?? 'default'}`, groupArg, testType, test].filter(Boolean).join(':'),
             ...(isFinalRun
               ? {
                   // Events can be finicky in CI. This switches to a more
