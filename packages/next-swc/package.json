@@ -3,6 +3,7 @@
   "version": "13.4.14-canary.2",
   "private": true,
   "scripts": {
+    "force-build": "echo 1",
     "clean": "node ../../scripts/rm.mjs native",
     "build-native": "napi build --platform -p next-swc-napi --cargo-cwd ../../ --cargo-name next_swc_napi --features plugin,rustls-tls,image-webp --js false native",
     "build-native-release": "napi build --platform -p next-swc-napi --cargo-cwd ../../ --cargo-name next_swc_napi --release --features plugin,rustls-tls,image-webp,tracing/release_max_level_info --js false native",

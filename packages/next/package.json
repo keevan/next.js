@@ -67,6 +67,7 @@
     "next": "./dist/bin/next"
   },
   "scripts": {
+    "force-build": "echo 1",
     "dev": "taskr",
     "release": "taskr release",
     "build": "pnpm release && pnpm types",
